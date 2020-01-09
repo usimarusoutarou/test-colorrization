@@ -228,12 +228,12 @@ if uses_device >= 0:
 listdataset1 = []
 listdataset2 = []
 
-fs = os.listdir('/home/nagalab/soutarou/colorrization/images')
+fs = os.listdir('/home/nagalab/soutarou/test-colorrization/images')
 fs.sort()
 
 for fn in fs:
 	# 画像を読み込んで128×128ピクセルにリサイズ
-	img = Image.open('/home/nagalab/soutarou/colorrization/images/' + fn).convert('RGB').resize((128, 128))
+	img = Image.open('/home/nagalab/soutarou/test-colorrization/images/' + fn).convert('RGB').resize((128, 128))
 
 	if 'png' in fn:
 		# 画素データを0〜1の領域にする
