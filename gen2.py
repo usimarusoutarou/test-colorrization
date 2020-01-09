@@ -171,7 +171,7 @@ class Generator_NN(chainer.Chain):
 		e2 = self.cbr1(e1)
 		e3 = self.cbr2(e2)
 		e4 = self.cbr3(e3)
-		e5 = self.cbr4(F.concat([e4, x2e4]))
+		e5 = self.cbr4(e4)
 		r0 = self.res0(e5)
 		r1 = self.res1(r0)
 		a0 = self.ad0(r1,x2e4)
