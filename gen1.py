@@ -139,7 +139,7 @@ class Generator_NN(chainer.Chain):
 			self.cbr1 = CBR(base*2, base*4)
 			self.cbr2 = CBR(base*4, base*8)
 			self.cbr3 = CBR(base*8, base*16)
-			self.cbr4 = CBR(base*32, base*16)
+			self.cbr4 = CBR(base*16, base*16)
 			self.res0 = ResBlock(base*16, base*16)
 			self.res1 = ResBlock(base*16, base*16)
 			self.ad0 = AdainResBlock(base*16, base*16)
