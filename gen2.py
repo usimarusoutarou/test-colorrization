@@ -206,12 +206,12 @@ chainer.serializers.load_hdf5( 'gen-50.hdf5', model )
 listdataset1 = []
 listdataset2 = []
 
-fs = os.listdir('/home/nagalab/soutarou/colorrization/test')
+fs = os.listdir('/home/nagalab/soutarou/test-colorrization/test')
 fs.sort()
 
 for fn in fs:
 	# 画像を読み込んで128×128ピクセルにリサイズ
-	img = Image.open('/home/nagalab/soutarou/colorrization/test/' + fn).convert('RGB').resize((128, 128))
+	img = Image.open('/home/nagalab/soutarou/test-colorrization/test/' + fn).convert('RGB').resize((128, 128))
 
 	if 'png' in fn:
 		# 画素データを0〜1の領域にする
