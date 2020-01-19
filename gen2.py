@@ -150,8 +150,8 @@ class Generator_NN(chainer.Chain):
 			self.ad3 = AdainResBlock(base*16, base*16)
 			self.up0 = Upsamp(base*16, base*16)
 			self.up1 = Upsamp(base*16, base*8)
-			self.up2 = Upsamp(base*16, base*4)
-			self.up3 = Upsamp(base*8, base*2)
+			self.up2 = Upsamp(base*8, base*4)
+			self.up3 = Upsamp(base*4, base*2)
 			self.up4 = Upsamp(base*4, base)
 
 			# Output layer
@@ -180,8 +180,8 @@ class Generator_NN(chainer.Chain):
 		a3 = self.ad3(a2,x2e4)
 		d0 = self.up0(a3)
 		d1 = self.up1(d0)
-		d2 = self.up2(F.concat([d1, e3]))
-		d3 = self.up3(F.concat([d2, e2]))
+		d2 = self.up2(d1)
+		d3 = self.up3(d2)
 		d4 = self.up4(F.concat([d3, e1]))
 		d5 = F.sigmoid(self.c1(F.concat([d4,e0])))
 		
