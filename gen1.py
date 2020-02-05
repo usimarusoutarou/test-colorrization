@@ -261,7 +261,7 @@ optimizer_gen.setup(model_gen)
 
 # デバイスを選択してTrainerを作成する
 updater = Updater(train_iter, {'opt_gen':optimizer_gen}, device=uses_device)
-trainer = training.Trainer(updater, (1000, 'epoch'), out="result")
+trainer = training.Trainer(updater, (100, 'epoch'), out="result")
 # 学習の進展を表示するようにする
 trainer.extend(extensions.ProgressBar())
 trainer.extend(extensions.LogReport(trigger=(500, 'epoch'), log_name='log'))
