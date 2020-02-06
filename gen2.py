@@ -121,7 +121,6 @@ class Generator_NN(chainer.Chain):
 		w = chainer.initializers.GlorotUniform()
 		# 全ての層を定義する
 		super(Generator_NN, self).__init__()
-		
 		with self.init_scope():
 
 			#ヒント画像
@@ -142,20 +141,14 @@ class Generator_NN(chainer.Chain):
 			self.cbr2 = CBR(base*4, base*8)
 			self.cbr3 = CBR(base*16, base*16)
 			self.cbr4 = CBR(base*32, base*16)
-			self.res0 = ResBlock(base*16, base*16)
-			self.res1 = ResBlock(base*16, base*16)
-			self.ad0 = AdainResBlock(base*16, base*16)
-			self.ad1 = AdainResBlock(base*16, base*16)
-			self.ad2 = AdainResBlock(base*16, base*16)
-			self.ad3 = AdainResBlock(base*16, base*16)
 			self.up0 = Upsamp(base*16, base*16)
 			self.up1 = Upsamp(base*16, base*8)
 			self.up2 = Upsamp(base*8, base*4)
 			self.up3 = Upsamp(base*4, base*2)
-			self.up4 = Upsamp(base*4, base)
+			self.up4 = Upsamp(base*2, base)
 
 			# Output layer
-			self.c1 = L.Convolution2D(base*2, 3, 3, 1, 1, initialW=w)
+			self.c1 = L.Convolution2D(base, 3, 3, 1, 1, initialW=w)
 			
 	def __call__(self, x1,x2):
 
@@ -172,18 +165,12 @@ class Generator_NN(chainer.Chain):
 		e3 = self.cbr2(e2)
 		e4 = self.cbr3(F.concat([e3, x2e3]))
 		e5 = self.cbr4(F.concat([e4, x2e4]))
-		r0 = self.res0(e5)
-		r1 = self.res1(r0)
-		a0 = self.ad0(r1,x2e4)
-		a1 = self.ad1(a0,x2e4)
-		a2 = self.ad2(a1,x2e4)
-		a3 = self.ad3(a2,x2e4)
-		d0 = self.up0(a3)
+		d0 = self.up0(e5)
 		d1 = self.up1(d0)
 		d2 = self.up2(d1)
 		d3 = self.up3(d2)
-		d4 = self.up4(F.concat([d3, e1]))
-		d5 = F.sigmoid(self.c1(F.concat([d4,e0])))
+		d4 = self.up4(d3)
+		d5 = F.sigmoid(self.c1(d4))
 		
 		return d5	# 結果を返すのみ
 
