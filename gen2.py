@@ -152,7 +152,7 @@ class Generator_NN(chainer.Chain):
 			self.up1 = Upsamp(base*16, base*8)
 			self.up2 = Upsamp(base*8, base*4)
 			self.up3 = Upsamp(base*4, base*2)
-			self.up4 = Upsamp(base*4, base)
+			self.up4 = Upsamp(base*2, base)
 
 			# Output layer
 			self.c1 = L.Convolution2D(base*2, 3, 3, 1, 1, initialW=w)
@@ -182,7 +182,7 @@ class Generator_NN(chainer.Chain):
 		d1 = self.up1(d0)
 		d2 = self.up2(d1)
 		d3 = self.up3(d2)
-		d4 = self.up4(F.concat([d3, e1]))
+		d4 = self.up4(d3)
 		d5 = F.sigmoid(self.c1(F.concat([d4,e0])))
 		
 		return d5	# 結果を返すのみ
